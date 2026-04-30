@@ -1,108 +1,70 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { usePost } from "../hooks/usePost"; 
+import { usePost } from "../hooks/usePost";
 import "../styles/formAluno.css";
 
 const CadastroAluno = () => {
   const navigate = useNavigate();
-
-  // Inicializa o hook com o endpoint de registro
+  // Como seu baseURL já tem "/api", passamos apenas o restante
   const { postData, loading, error: apiError } = usePost("/usuarios/registro");
 
-  // O estado deve ter as chaves EXATAS que você quer manipular
   const [form, setForm] = useState({
     nome: "",
     email: "",
     senha: "",
-    universidadeId: "", // Usaremos ID conforme sua última tentativa
+    nomeUniversidade: ""
   });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // name deve ser igual a 'nome', 'email', 'senha' ou 'universidadeId'
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    // Monta o JSON para enviar ao Java
-    const payload = {
-      nome: form.nome,
-      email: form.email,
-      senha: form.senha,
-      // Se o campo estiver vazio, envia null para evitar erro de formato UUID
-      universidadeId: form.universidadeId.trim() || null, 
-    };
+  // Verificação manual antes de enviar
+  if (!form.nome || !form.email || !form.senha || !form.nomeUniversidade) {
+    alert("Por favor, preencha todos os campos!");
+    return;
+  }
 
-    try {
-      const result = await postData(payload);
-      
-      if (result) {
-        // Se o back-end responder 200/201, redireciona
-        navigate("/acesso-aluno");
-      }
-    } catch (err) {
-      console.error("Erro ao cadastrar aluno:", err);
-    }
+  const payload = {
+    nome: form.nome.trim(),
+    email: form.email.trim(),
+    senha: form.senha,
+    nomeUniversidade: form.nomeUniversidade.trim()
   };
+
+  try {
+    const result = await postData(payload);
+    if (result) navigate("/acesso-aluno");
+  } catch (err) {
+    // Se der 400 aqui, olhe o terminal do IntelliJ (abaixo)
+    console.error("Erro 400: Dados inválidos");
+  }
+};
 
   return (
     <div className="form-container">
       <div className="form-left">
-        <h2>Acesso estudantil</h2>
-        <h1>Crie sua conta de estudante</h1>
-        <p>Conecte suas credenciais universitárias para acompanhar notícias, eventos e tudo o que acontece na sua universidade em um só lugar.</p>
-        <img src="/imgs/biblioteca.jpg" alt="Cadastro de Aluno" className="form-img" />
+        <h2>Jornal Universitário</h2>
+        <h1>Crie sua conta</h1>
+        <img src="/imgs/biblioteca.jpg" alt="Biblioteca" className="form-img" />
       </div>
 
       <div className="form-right">
-        <h3>Cadastro de Aluno</h3>
-        <p>Preencha o formulário abaixo usando sua identidade institucional para verificar sua matrícula.</p>
-
-        {/* Exibe erro caso o e-mail já exista ou o servidor falhe */}
-        {apiError && (
-          <p style={{ color: "red", fontSize: "14px", marginBottom: "10px" }}>
-            {apiError.response?.data?.message || "Erro: Verifique os dados ou se o e-mail já existe."}
-          </p>
-        )}
-
-        <form onSubmit={handleSubmit}>
-          <input 
-            name="nome" 
-            placeholder="Nome completo" 
-            value={form.nome} 
-            onChange={handleChange} 
-            required 
-          />
-      
-          <input 
-            name="email" 
-            type="email" 
-            placeholder="Email da universidade" 
-            value={form.email} 
-            onChange={handleChange} 
-            required 
-          />
+        <form onSubmit={handleSubmit} className="cadastro-form">
+          <h3>Cadastro de Aluno</h3>
+          {apiError && <div className="error-box">Erro 403: Verifique o console do Spring.</div>}
           
-          <input 
-            name="universidadeId" // 🚨 IMPORTANTE: Igual ao nome no useState
-            placeholder="Instituição" 
-            value={form.universidadeId} 
-            onChange={handleChange} 
-          />
+          <input name="nome" placeholder="Nome" value={form.nome} onChange={handleChange} required />
+          <input name="email" type="email" placeholder="Email" value={form.email} onChange={handleChange} required />
+          <input name="nomeUniversidade" placeholder="Universidade" value={form.nomeUniversidade} onChange={handleChange} required />
+          <input name="senha" type="password" placeholder="Senha" value={form.senha} onChange={handleChange} required />
           
-          <input 
-            name="senha" 
-            type="password" 
-            placeholder="Criar senha" 
-            value={form.senha} 
-            onChange={handleChange} 
-            required 
-          />
-
           <button type="submit" disabled={loading}>
-            {loading ? "Cadastrando..." : "Criar Conta Acadêmica →"}
+            {loading ? "Carregando..." : "Cadastrar"}
           </button>
         </form>
       </div>

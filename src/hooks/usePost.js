@@ -1,6 +1,5 @@
-// src/hooks/usePost.js
 import { useState } from "react";
-import api from "../services/api"; // Verifique se este caminho está correto no seu projeto!
+import api from "../services/api"; // ajuste o caminho se necessário
 
 export function usePost(url) {
   const [loading, setLoading] = useState(false);
@@ -10,16 +9,20 @@ export function usePost(url) {
     setLoading(true);
     setError(null);
     try {
-      const response = await api.post(url, data);
+      const response = await api.post(url, data, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
       return response.data;
     } catch (err) {
       setError(err);
-      throw err; // Lançar o erro ajuda o componente a saber que falhou
+      console.error("Status do Erro:", err.response?.status);
+      throw err;
     } finally {
       setLoading(false);
     }
   };
 
-  // CRUCIAL: postData precisa estar no retorno!
   return { postData, loading, error };
 }
