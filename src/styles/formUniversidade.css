@@ -1,0 +1,104 @@
+.form-container {
+  display: flex;
+  height: 100vh;
+}
+
+.form-left {
+  flex: 1;
+  padding: 40px;
+  background: #f3f4f6;
+  transition: background 0.4s ease;
+}
+
+.form-left.cinza {
+  background: #f3f4f6;
+  
+}
+
+.form-left.azul {
+  background: #1e3a8a;
+  color: white;
+}
+
+.form-left.roxo {
+  background: #5a4bff;
+  color: white;
+}
+
+.form-left.verde {
+  background: #065f46;
+  color: white;
+}
+
+.form-left.preto {
+  background: #0f172a;
+  color: white;
+}
+.form-left.amarelo {
+  background: #facc15;
+  color: black;
+}
+.color-buttons {
+  padding: 40px;
+  display: flex;
+  gap: 10px;
+
+}
+
+.color-buttons button {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+/* CORES DOS BOTÕES */
+.color-buttons button:nth-child(1) {
+  background: #f3f4f6;
+}
+
+.color-buttons button:nth-child(2) {
+  background: #1e3a8a;
+}
+
+.color-buttons button:nth-child(3) {
+  background: #5a4bff;
+}
+
+.color-buttons button:nth-child(4) {
+  background: #065f46;
+}
+.color-buttons button:nth-child(5) {
+  background: #0f172a;
+}
+.color-buttons button:nth-child(6) {
+  background: #facc15;
+}
+
+
+
+.form-right {
+  flex: 1;
+  padding: 40px;
+}
+
+.form-right input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.form-right button {
+  width: 100%;
+  padding: 12px;
+  background: #0f172a;
+  color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+}
+
+.form-img{
+  mask-image: linear-gradient(to bottom, transparent, black 70%, transparent);
+  width: 100%;
+}

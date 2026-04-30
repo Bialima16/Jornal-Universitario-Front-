@@ -28,3 +28,8 @@
   color: white;
   border: none;
 }
+
+.form-img{
+  mask-image: linear-gradient(to bottom, transparent, black 70%, transparent);
+  width: 100%;
+}

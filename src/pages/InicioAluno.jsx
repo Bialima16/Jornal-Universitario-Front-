@@ -1,12 +1,12 @@
 import React from "react";
 import "../styles/inicioAluno.css";
-import Header from "../components/Header";
+import HeaderAluno from "../components/HeaderAluno";
 import Footer from "../components/Footer";
 
 export default function InicioAluno() {
   return (
     <>
-      <Header />
+      <HeaderAluno />
 
       <div className="home-container">
         {/* Categorias */}

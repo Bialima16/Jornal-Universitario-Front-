@@ -1,93 +1,199 @@
 .home {
-  padding-top: 60px; /* altura do header */
+  padding-top: 60px;
+  scroll-margin-top: 60px; /* altura do header */
+}
+section{
+  min-height: 100vh;
+  scroll-margin-top: 100px;
 }
 
 .hero {
   text-align: center;
-  margin-top: 100px;
+  margin-top: 150px;
 }
 
 .hero h1 {
-  font-size: 40px;
+  font-size: 60px;
   margin: 10px 0;
 }
-
-.subtitle {
-  color: gray;
-  margin-bottom: 20px;
+.efeito {
+  color: #7C794B;
+  animation: fadeInUp 1s ease-out;
+  font-weight: bold;
+  font-size: 20px;
 }
+.subtitle {
+  color: #7C794B;
+  margin-bottom: 20px;
+  font-size: 30px;
+}
+
+.proposta {
+  padding: 0px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 80px;
+}
+
+.proposta-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 60px;
+}
+
+.proposta-item img {
+  width: 450px;
+}
+
+.proposta-text {
+  max-width: 500px;
+  text-align: left;
+}
+
+.proposta-text h2 {
+  font-size: 32px;
+  color: #0f172a;
+  margin-bottom: 15px;
+}
+
+.proposta-text p {
+  color: #555;
+  line-height: 1.6;
+}
+
+/* inverter layout */
+.proposta-item .reverse {
+  flex-direction: row-reverse;
+}
+
+
 .benefits {
   padding: 80px 20px;
   text-align: center;
+  background: #f5f5f5;
+}
+
+.benefits h2 {
+  font-size: 32px;
+  margin-bottom: 40px;
 }
 
 .benefits-grid {
   display: flex;
   justify-content: center;
-  gap: 40px;
-  margin-top: 30px;
+  gap: 30px;
 }
 
 .benefits-grid div {
-  max-width: 250px;
+  background: #e5e7eb;
+  padding: 30px;
+  width: 260px;
+  text-align: left;
+  border-radius: 6px;
+  transition: all 0.3s ease;
 }
 
-.chamada {
-  background: #0f172a;
-  color: white;
-  text-align: center;
-  padding: 60px 20px;
-}
 
-.chamada p {
+.benefits-grid h3 {
   margin: 15px 0;
 }
+
+.benefits-grid p {
+  font-size: 14px;
+  color: #555;
+}
+
+
 .access {
   padding: 80px 20px;
   text-align: center;
-  background: #f5f5f5;
+  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  color: white;
+}
+
+.access h2 {
+  margin-bottom: 40px;
 }
 
 .access-cards {
   display: flex;
   justify-content: center;
   gap: 40px;
-  margin-top: 40px;
 }
 
 .card {
-  width: 320px;
-  padding: 25px;
-  border-radius: 8px;
-  text-align: left;
+  width: 340px;
+  padding: 30px;
+  border-radius: 6px;
 }
 
+/* aluno (claro) */
 .card.aluno {
-  background: #fff;
+  background: #f5f5f5;
+  color: #000;
 }
 
+/* universidade (escuro) */
 .card.universidade {
-  background: linear-gradient(135deg, #0f172a, #1e3a8a);
+  background: rgba(0,0,0,0.2);
   color: white;
+}
+
+.card h3 {
+  font-size: 22px;
+  margin: 10px 0;
+}
+
+.card p {
+  font-size: 14px;
+  margin-bottom: 20px;
 }
 
 .card .tag {
   font-size: 12px;
-  background: #e5e7eb;
+  background: #d4d4aa;
   padding: 4px 8px;
+  display: inline-block;
+  margin-bottom: 10px;
 }
 
-.card.universidade .tag {
-  background: rgba(255,255,255,0.2);
-}
-
+/* botão */
 .card button {
-  margin-top: 15px;
-  padding: 10px;
   width: 100%;
+  padding: 10px;
+  border: none;
   cursor: pointer;
 }
 
+
+
+/* botão claro */
+.card.aluno button {
+  background: transparent;
+  border: 1px solid #000;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+
+.card.aluno button:hover {
+  background: #1e3a8a;
+  border: 1px solid #1e3a8a;
+  color: white;
+}
+/* botão escuro */
+.card.universidade button {
+  background: #c2a96b;
+  color: #000;
+  border: 1px solid #c2a96b;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+}
+.card.universidade button:hover {
+  background: transparent;
+  border: 1px solid #c2a96b;
+  color: #ffffff;
+}
 .footer {
   background: #111;
   color: white;

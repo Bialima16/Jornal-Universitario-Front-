@@ -1,26 +1,55 @@
 html {
   scroll-behavior: smooth;
+  scroll-margin-top: 60px;
 }
 
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 10px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
   background: white;
-  overflow: hidden;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 nav a {
   margin: 0 10px;
   text-decoration: none;
   color: #333;
+  position: relative; /* ESSENCIAL */
+  display: inline-block;
+}
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: #c2a96b;
+  transition: width 0.3s ease;
+}
+
+/* hover */
+nav a:hover::after {
+  width: 100%;
+  color: #c2a96b;
+}
+
+/* ativo (quando clicado) */
+nav a:focus::after {
+  width: 100%;
+  background: #c2a96b;
 }
 
 .auth {
@@ -35,4 +64,12 @@ nav a {
   padding: 8px 15px;
   border: none;
   cursor: pointer;
+  transition: all 0.5s ease;
+  border-radius: 10px;
+  border: 2px solid #0f172a;
+}
+.btn-dark:hover {
+  background: none;
+  color: #0f172a;
+  border: 2px solid #0f172a;
 }

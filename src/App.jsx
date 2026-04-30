@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import CadastroAluno from "./pages/CadastroAluno";
 import CadastroUniversidade from "./pages/CadastroUniversidade";
 import InicioAluno from "./pages/InicioAluno";
+import InicioUniversidade from "./pages/InicioUniversidade";
 import LoginModal from "./components/LoginModal";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/cadastro-aluno" element={<CadastroAluno />} />
         <Route path="/cadastro-universidade" element={<CadastroUniversidade />} />
         <Route path="/acesso-aluno" element={<InicioAluno />} />
+        <Route path="/acesso-universidade" element={<InicioUniversidade />} />
       </Routes>
 
       {showLogin && (

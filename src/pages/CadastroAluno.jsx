@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { usePost } from "../hooks/usePost"; 
-import "../styles/form.css";
+import "../styles/formAluno.css";
 
 const CadastroAluno = () => {
   const navigate = useNavigate();
@@ -50,12 +50,15 @@ const CadastroAluno = () => {
   return (
     <div className="form-container">
       <div className="form-left">
-        <h2>Crie sua conta de estudante</h2>
-        <p>Conecte suas credenciais universitárias para acompanhar tudo.</p>
+        <h2>Acesso estudantil</h2>
+        <h1>Crie sua conta de estudante</h1>
+        <p>Conecte suas credenciais universitárias para acompanhar notícias, eventos e tudo o que acontece na sua universidade em um só lugar.</p>
+        <img src="/imgs/biblioteca.jpg" alt="Cadastro de Aluno" className="form-img" />
       </div>
 
       <div className="form-right">
         <h3>Cadastro de Aluno</h3>
+        <p>Preencha o formulário abaixo usando sua identidade institucional para verificar sua matrícula.</p>
 
         {/* Exibe erro caso o e-mail já exista ou o servidor falhe */}
         {apiError && (
@@ -72,7 +75,7 @@ const CadastroAluno = () => {
             onChange={handleChange} 
             required 
           />
-          
+      
           <input 
             name="email" 
             type="email" 
@@ -84,7 +87,7 @@ const CadastroAluno = () => {
           
           <input 
             name="universidadeId" // 🚨 IMPORTANTE: Igual ao nome no useState
-            placeholder="ID da Instituição (UUID)" 
+            placeholder="Instituição" 
             value={form.universidadeId} 
             onChange={handleChange} 
           />
