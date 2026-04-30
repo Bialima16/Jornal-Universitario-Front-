@@ -1,0 +1,30 @@
+.form-container {
+  display: flex;
+  height: 100vh;
+}
+
+.form-left {
+  flex: 1;
+  padding: 40px;
+  background: #f3f4f6;
+}
+
+.form-right {
+  flex: 1;
+  padding: 40px;
+}
+
+.form-right input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 10px;
+}
+
+.form-right button {
+  width: 100%;
+  padding: 12px;
+  background: #0f172a;
+  color: white;
+  border: none;
+}
