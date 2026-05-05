@@ -5,7 +5,6 @@ import "../styles/formAluno.css";
 
 const CadastroAluno = () => {
   const navigate = useNavigate();
-  // Como seu baseURL já tem "/api", passamos apenas o restante
   const { postData, loading, error: apiError } = usePost("/usuarios/registro");
 
   const [form, setForm] = useState({
@@ -23,7 +22,6 @@ const CadastroAluno = () => {
 const handleSubmit = async (e) => {
   e.preventDefault();
 
-  // Verificação manual antes de enviar
   if (!form.nome || !form.email || !form.senha || !form.nomeUniversidade) {
     alert("Por favor, preencha todos os campos!");
     return;
@@ -37,11 +35,10 @@ const handleSubmit = async (e) => {
   };
 
   try {
-    const result = await postData(payload);
-    if (result) navigate("/acesso-aluno");
+    await postData(payload);
+    navigate("/acesso-aluno"); // navega independente do conteúdo da resposta
   } catch (err) {
-    // Se der 400 aqui, olhe o terminal do IntelliJ (abaixo)
-    console.error("Erro 400: Dados inválidos");
+    console.error("Erro ao cadastrar:", err.response?.status);
   }
 };
 

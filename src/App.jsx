@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import {useState} from "react";
+import { useState } from "react";
 import Home from "./pages/Home";
 import CadastroAluno from "./pages/CadastroAluno";
 import CadastroUniversidade from "./pages/CadastroUniversidade";
@@ -13,19 +13,13 @@ function App() {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={<Home onOpenLogin={() => setShowLogin(true)} />}
-        />
+        <Route path="/" element={<Home onOpenLogin={() => setShowLogin(true)} />} />
         <Route path="/cadastro-aluno" element={<CadastroAluno />} />
         <Route path="/cadastro-universidade" element={<CadastroUniversidade />} />
         <Route path="/acesso-aluno" element={<InicioAluno />} />
-        <Route path="/acesso-universidade" element={<InicioUniversidade />} />
+        <Route path="/admin/:sigla" element={<InicioUniversidade />} />
       </Routes>
-
-      {showLogin && (
-        <LoginModal onClose={() => setShowLogin(false)} />
-      )} criar pasta nhooks
+      {showLogin && <LoginModal onClose={() => setShowLogin(false)} />}
     </>
   );
 }

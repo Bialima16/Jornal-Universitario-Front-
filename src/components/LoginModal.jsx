@@ -1,8 +1,10 @@
 import { useState } from "react";
-import axios from "axios"; // Importação do Axios
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "../styles/modal.css";
 
 const LoginModal = ({ onClose }) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
@@ -12,34 +14,52 @@ const LoginModal = ({ onClose }) => {
     e.preventDefault();
     setErro("");
     setCarregando(true);
-
     try {
-      // O Axios simplifica a chamada: não precisa de JSON.stringify nem headers manuais na maioria das vezes
-      const response = await axios.post("http://localhost:8080/api/auth/login", {
-        email,
-        senha,
-      });
+      const response = await axios.post(
+        "http://localhost:8080/api/auth/login",
+        {
+          email,
+          senha,
+        },
+      );
 
-      // No Axios, os dados vêm dentro de .data
-      const { token, usuario } = response.data;
+      const {
+        token,
+        nome,
+        email: emailUsuario,
+        role,
+        universidadeId,
+        universidadeSigla,
+      } = response.data;
 
       localStorage.setItem("token", token);
-      if (usuario) localStorage.setItem("usuario", JSON.stringify(usuario));
+      localStorage.setItem(
+        "usuario",
+        JSON.stringify({
+          nome,
+          email: emailUsuario,
+          role,
+          universidadeId,
+          universidadeSigla,
+        }),
+      );
 
-      console.log("Login realizado com sucesso!");
       onClose();
-      window.location.reload();
 
+      if (role === "ADMIN") {
+        navigate(`/admin/${universidadeSigla}`); // ex: /admin/unifor ou /admin/ufc
+      } else if (role === "LEITOR") {
+        navigate("/acesso-aluno");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
-      // O Axios coloca o erro do servidor em err.response
       console.error("Erro detalhado:", err);
-
       if (err.response) {
-        // O servidor respondeu com um status fora do range 2xx
-        const mensagem = err.response.data?.message || "Email ou senha inválidos.";
+        const mensagem =
+          err.response.data?.message || "Email ou senha inválidos.";
         setErro(mensagem);
       } else if (err.request) {
-        // A requisição foi feita mas não houve resposta (servidor fora do ar ou CORS)
         setErro("Não foi possível conectar ao servidor. Verifique o CORS.");
       } else {
         setErro("Ocorreu um erro inesperado.");
@@ -53,13 +73,14 @@ const LoginModal = ({ onClose }) => {
     <div className="overlay">
       <div className="modal">
         <h2>Login</h2>
-
         {erro && (
-          <p className="error-message" style={{ color: "red", fontSize: "0.9rem", marginBottom: "10px" }}>
+          <p
+            className="error-message"
+            style={{ color: "red", fontSize: "0.9rem", marginBottom: "10px" }}
+          >
             {erro}
           </p>
         )}
-
         <form onSubmit={handleSubmit}>
           <label>Email</label>
           <input
@@ -69,7 +90,6 @@ const LoginModal = ({ onClose }) => {
             onChange={(e) => setEmail(e.target.value)}
             disabled={carregando}
           />
-
           <label>Senha</label>
           <input
             type="password"
@@ -78,23 +98,19 @@ const LoginModal = ({ onClose }) => {
             onChange={(e) => setSenha(e.target.value)}
             disabled={carregando}
           />
-
           <div className="options">
             <label>
               <input type="checkbox" /> Manter conectado
             </label>
             <a href="#">Esqueceu a senha?</a>
           </div>
-
           <button type="submit" className="btn-primary" disabled={carregando}>
             {carregando ? "Entrando..." : "Entrar"}
           </button>
         </form>
-
         <p className="register">
           Não tem uma conta? <a href="#">Inscreva-se</a>
         </p>
-
         <button className="close" onClick={onClose}>
           X
         </button>

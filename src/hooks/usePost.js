@@ -1,5 +1,5 @@
 import { useState } from "react";
-import api from "../services/api"; // ajuste o caminho se necessário
+import api from "../services/api"; // importa a instância com baseURL
 
 export function usePost(url) {
   const [loading, setLoading] = useState(false);
@@ -11,8 +11,8 @@ export function usePost(url) {
     try {
       const response = await api.post(url, data, {
         headers: {
-          'Content-Type': 'application/json'
-        }
+          "Content-Type": "application/json",
+        },
       });
       return response.data;
     } catch (err) {
