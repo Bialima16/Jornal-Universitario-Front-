@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { usePost } from "../hooks/usePost";
 import "../styles/formAluno.css";
 
+
 const CadastroAluno = () => {
   const navigate = useNavigate();
   const { postData, loading, error: apiError } = usePost("/usuarios/registro");
@@ -47,7 +48,7 @@ const handleSubmit = async (e) => {
       <div className="form-left">
         <h2>Jornal Universitário</h2>
         <h1>Crie sua conta</h1>
-        <img src="/imgs/biblioteca.jpg" alt="Biblioteca" className="form-img" />
+        <img src="imgs/biblioteca.jpg" alt="Biblioteca" className="form-img" />
       </div>
 
       <div className="form-right">
@@ -60,9 +61,9 @@ const handleSubmit = async (e) => {
           <input name="nomeUniversidade" placeholder="Universidade" value={form.nomeUniversidade} onChange={handleChange} required />
           <input name="senha" type="password" placeholder="Senha" value={form.senha} onChange={handleChange} required />
           
-          <button type="submit" disabled={loading}>
+          <a href="/validacao-email"><button type="submit" disabled={loading}>
             {loading ? "Carregando..." : "Cadastrar"}
-          </button>
+          </button></a>
         </form>
       </div>
     </div>
